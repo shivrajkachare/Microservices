@@ -62,14 +62,20 @@ git diff HEAD origin/main
 git pull
 
 *** Conflicat Resolution ***
-//Updated the same line Local and the Remote
-//Add the Local ID-> Intillj, VS Code
-<<<<<<< HEAD
-return "Local Change";            //Its local code Which update on GITHUB
-=======
-return "Remote Change";           //Which is already present GitHub code 
->>>>>>> origin/main
+//Same line changed by the Local and Remot(GitHub) that time it occures
 
+to Resolve it first 
+git add .
+git commit -r "Updated <Service or etc>"
+
+//Conflict has raise it shows the both the git and local code it Happen by automatically.
+//We need to remove the this and which required that only push the part
+
+<<<<<<< HEAD
+//Another My Local change               //Local code
+=======
+//My Git change                        //Git Code it is
+>>>>>>> c36654815404acd2bf55ffa59267f9fb6deae5b3
 
 
 
