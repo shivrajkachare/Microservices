@@ -77,6 +77,11 @@ git commit -r "Updated <Service or etc>"
 //My Git change                        //Git Code it is
 >>>>>>> c36654815404acd2bf55ffa59267f9fb6deae5b3
 
+and follow same 
+git add .
+git commit -r "Updated <Service or etc>"
+
+and push it 
 
 
 
