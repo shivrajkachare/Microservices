@@ -1,0 +1,77 @@
+git --version    //check version
+
+
+LAPTOP to GITHUB:
+
+//Store the user and mail id 
+git config --global user.name "Your Name"
+git config --global user.email "your_email@example.com"
+
+//Configuraton List
+git config --list
+
+//After above get login UI and logged in 
+
+
+git init
+
+//Add all files
+git add .
+
+//Commit the changes (perment save)
+git commit -m "Initial commit"
+
+
+//Connect the GitHub Repository
+git remote add origin https://github.com/shivrajkachare/Microservices.git
+
+//Push the changes 
+git branch -M main
+git push -u origin main
+
+//OR if push the by the branch name 
+git checkout -b microservice
+git push -u origin microservice
+
+
+
+
+**if the changes in the LAPTOP to GitHub**
+
+//check status --> it shows the changes and info
+git status
+
+//add changes
+git add .
+
+//commit changes
+git commit "User Controller Updated"
+
+
+
+
+
+**Check Changes Done**
+//Commit and changes will show
+git show
+
+//Check Changes Did in the GitHun and then pull it
+git fetch            //it required then it able to search the changes are done or not
+git log HEAD..origin/main --oneline
+git diff HEAD origin/main
+git pull
+
+*** Conflicat Resolution ***
+//Updated the same line Local and the Remote
+//Add the Local ID-> Intillj, VS Code
+<<<<<<< HEAD
+return "Local Change";            //Its local code Which update on GITHUB
+=======
+return "Remote Change";           //Which is already present GitHub code 
+>>>>>>> origin/main
+
+
+
+
+
+
