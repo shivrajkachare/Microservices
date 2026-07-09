@@ -1,0 +1,124 @@
+Properties:
+
+Order Service:
+spring.application.name=OrderService
+
+spring.datasource.url=jdbc:postgresql://localhost:5432/Data
+spring.datasource.username=postgres
+spring.datasource.password=0000
+
+spring.jpa.hibernate.ddl-auto=update
+spring.jpa.show-sql=true
+
+server.port=8082
+
+# ================= Circuit Breaker =================
+resilience4j.circuitbreaker.instances.userService.slidingWindowSize=10
+resilience4j.circuitbreaker.instances.userService.minimumNumberOfCalls=4
+resilience4j.circuitbreaker.instances.userService.failureRateThreshold=50
+resilience4j.circuitbreaker.instances.userService.permittedNumberOfCallsInHalfOpenState=3
+resilience4j.circuitbreaker.instances.userService.slowCallRateThreshold=60
+resilience4j.circuitbreaker.instances.userService.slowCallDurationThreshold=10s
+
+# ================= Retry =================
+resilience4j.retry.instances.userService.maxAttempts=3
+resilience4j.retry.instances.userService.waitDuration=15s
+
+# ================= Eureka =================
+eureka.instance.prefer-ip-address=true
+eureka.client.register-with-eureka=true
+eureka.client.fetch-registry=true
+eureka.instance.ip-address=127.0.0.1
+eureka.instance.hostname=localhost
+eureka.client.service-url.defaultZone=http://localhost:8761/eureka/
+
+# ================= TRACING (FIXED) =================
+management.tracing.enabled=true
+management.tracing.sampling.probability=1.0
+management.tracing.propagation.type=w3c
+
+# Zipkin
+management.zipkin.tracing.endpoint=http://localhost:9411/api/v2/spans
+
+# Actuator
+management.endpoints.web.exposure.include=*
+
+# ================= LOGGING =================
+logging.pattern.console=%d{yyyy-MM-dd HH:mm:ss} [trace=%X{traceId:-}] [span=%X{spanId:-}] [%thread] %-5level %logger - %msg%n
+logging.level.io.micrometer.tracing=DEBUG
+logging.level.zipkin2=DEBUG
+logging.level.brave=DEBUG
+
+
+User Service:
+spring.application.name=UserService
+spring.datasource.url=jdbc:postgresql://localhost:5432/postgres
+spring.datasource.username=postgres
+spring.datasource.password=0000
+
+spring.jpa.show-sql=true
+spring.jpa.hibernate.ddl-auto=update
+
+#Eureka Server
+server.port=8081
+eureka.instance.prefer-ip-address=true
+eureka.client.register-with-eureka=true
+eureka.client.fetch-registry=true
+eureka.instance.ip-address=127.0.0.1
+eureka.instance.hostname=localhost
+eureka.client.service-url.defaultZone=http://localhost:8761/eureka/
+
+#==== TRACING CONFIG ===
+management.tracing.enabled=true
+management.tracing.sampling.probability=1.0
+management.observations.enabled=true
+management.tracing.propagation.type=w3c
+#Zipkin endpoint
+management.zipkin.tracing.endpoint=http://localhost:9411/api/v2/spans
+
+#=== LOG FORMAT
+logging.pattern.console=%d{yyyy-MM-dd HH:mm:ss} [%X{traceId:-}] [%X{spanId:-}] [%thread] %-5level %logger - %msg%n
+
+#Enable Debug
+logging.level.zipkin2=DEBUG
+logging.level.brave=DEBUG
+
+
+
+
+
+
+Eureka Service:
+spring.application.name=eureka-server
+server.port=8761
+eureka.client.register-with-eureka=false
+eureka.client.fetch-registry=false
+
+
+Gateway properties:
+server.port=8080
+spring.application.name=api-gateway
+
+# Eureka
+eureka.client.register-with-eureka=true
+eureka.client.fetch-registry=true
+eureka.client.service-url.defaultZone=http://localhost:8761/eureka/
+
+# Routes (optional if locator is enabled, but keep for safety)
+spring.cloud.gateway.routes[0].id=user-service
+spring.cloud.gateway.routes[0].uri=lb://UserService
+#spring.cloud.gateway.routes[0].uri=lb://USERSERVICE
+spring.cloud.gateway.routes[0].predicates[0]=Path=/User/**
+
+spring.cloud.gateway.routes[1].id=order-service
+spring.cloud.gateway.routes[1].uri=lb://OrderService
+#spring.cloud.gateway.routes[1].uri=lb://ORDERSERVICE
+spring.cloud.gateway.routes[1].predicates[0]=Path=/Order/**
+#Logging Used
+spring.cloud.gateway.observability.enabled=true
+
+#====Tracing Config ====
+management.tracing.sampling.probability=1.0
+management.zipkin.tracing.endpoint=http://localhost:9411/api/v2/spans
+
+logging.pattern.console=%d{yyyy-MM-dd HH:mm:ss} [%X{traceId:-}] [%X{spanId:-}] %-5level %logger - %msg%n

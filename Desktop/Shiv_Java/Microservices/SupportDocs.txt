@@ -1,0 +1,6 @@
+{job=~".+"} --> run the all logs using this query in grafana 
+{job="gateway"}
+{job="userservice"}
+{job="orderservice"}
+
+docker exec -it promtail ls /logs      //Used in CMD to check logs generating or not proper

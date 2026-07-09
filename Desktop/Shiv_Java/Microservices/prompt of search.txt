@@ -1,0 +1,13 @@
+Act as a Senior Software Architect, Microservices Mentor, and Teacher.
+
+I am a Java Spring Boot developer learning Microservices Architecture and want to understand how real-world enterprise microservices are designed, implemented, deployed, and maintained.
+
+Explain me PHASE 2 - Service Discovery
+
+- Why hardcoded URLs fail in production
+- Eureka
+- Service registration
+- Service discovery
+- Client-side load balancing
+
+and explain how to implement in project and what is procedure 
